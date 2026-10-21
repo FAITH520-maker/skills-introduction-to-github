@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>社群决策 AI · 多智能体群体决策</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">决</div>
+        <div class="brand-text">
+          <h1>社群决策 AI</h1>
+          <p>输入群聊记录 · 分析意图 · 多智能体协作 · 输出决策报告</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <span class="badge" id="modelBadge">正在连接服务…</span>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <section class="card" id="uploadCard">
+          <div class="card-head">
+            <h2>1 · 输入对话文件</h2>
+            <span class="hint">TXT / JSON</span>
+          </div>
+          <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="选择或拖入对话文件">
+            <input type="file" id="fileInput" accept=".txt,.json,text/plain,application/json" hidden />
+            <div class="drop-icon">⤴</div>
+            <p class="drop-title">拖入文件，或点击选择</p>
+            <p class="drop-sub">TXT：每行「昵称: 内容」；JSON：消息数组</p>
+          </div>
+          <p class="upload-status hidden" id="uploadStatus"></p>
+        </section>
+
+        <section class="card" id="historyCard">
+          <div class="card-head">
+            <h2>历史会话</h2>
+            <span class="hint" id="historyCount"></span>
+          </div>
+          <ul class="history-list" id="historyList">
+            <li class="history-empty">暂无会话</li>
+          </ul>
+        </section>
+      </aside>
+
+      <section class="content">
+        <div class="card intro-card" id="introCard">
+          <p class="intro-lead">三步完成一次完整的群体决策</p>
+          <div class="intro-steps">
+            <div class="intro-step"><span class="intro-num">1</span><h3>上传对话</h3><p>解析 TXT / JSON，自动识别发言人</p></div>
+            <div class="intro-step"><span class="intro-num">2</span><h3>意图分析</h3><p>提炼决策问题与每个人的真实诉求</p></div>
+            <div class="intro-step"><span class="intro-num">3</span><h3>多智能体协作</h3><p>三位智能体独立发言、辩论、收敛</p></div>
+            <div class="intro-step"><span class="intro-num">4</span><h3>决策报告</h3><p>共识、分歧、风险与行动清单</p></div>
+          </div>
+        </div>
+
+        <section class="card hidden" id="conversationCard">
+          <div class="card-head">
+            <h2>对话概览</h2>
+            <span class="hint" id="convMeta"></span>
+          </div>
+          <div class="conversation" id="conversation"></div>
+        </section>
+
+        <section class="card hidden" id="pipelineCard">
+          <div class="card-head">
+            <h2>2 · 决策流程</h2>
+            <button class="btn btn-primary" id="runBtn">开始分析</button>
+          </div>
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+          <ol class="stepper" id="stepper"></ol>
+        </section>
+
+        <section class="card hidden" id="intentCard">
+          <div class="card-head">
+            <h2>3 · 意图洞察</h2>
+            <span class="hint">意图分析智能体</span>
+          </div>
+          <div id="intentBody"></div>
+        </section>
+
+        <section class="card hidden" id="collabCard">
+          <div class="card-head">
+            <h2>4 · 多智能体协作</h2>
+            <span class="hint" id="collabHint"></span>
+          </div>
+          <div class="agents" id="agentsGrid"></div>
+        </section>
+
+        <section class="card report-card hidden" id="reportCard">
+          <div class="card-head">
+            <h2>5 · 决策报告</h2>
+            <button class="btn btn-ghost" id="copyBtn">复制报告</button>
+          </div>
+          <div id="reportBody"></div>
+        </section>
+
+        <div class="error-banner hidden" id="errorBanner"></div>
+      </section>
+    </main>
+
+    <footer class="page-foot">社群决策 AI · 第一版 · FastAPI + DeepSeek 兼容模型 + 自定义多智能体协调器</footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
